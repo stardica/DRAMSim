@@ -1,9 +1,12 @@
 /*
- * c_bindings.cpp
+ * m2s-cgm-bindings.cpp
  *
  *  Created on: Jan 23, 2016
  *      Author: stardica
  */
+
+
+//this file binds the C++ DRAMSim code with m2s-cgm's C code.
 
 #include "DRAMSim.h"
 #include <stdio.h>
@@ -15,9 +18,13 @@ using namespace::DRAMSim;
 
 
 
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
 
 
 void call_print_me(void){
