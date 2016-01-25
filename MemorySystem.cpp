@@ -129,7 +129,6 @@ MemorySystem::MemorySystem(unsigned id, unsigned int megsOfMemory, CSVWriter &cs
 
 	DEBUG("CH. " <<systemID<<" TOTAL_STORAGE : "<< TOTAL_STORAGE << "MB | "<<NUM_RANKS<<" Ranks | "<< NUM_DEVICES <<" Devices per rank");
 
-
 	memoryController = new MemoryController(this, csvOut, dramsim_log);
 
 	// TODO: change to other vector constructor?

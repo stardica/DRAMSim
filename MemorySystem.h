@@ -53,36 +53,34 @@ typedef CallbackBase<void,unsigned,uint64_t,uint64_t> Callback_t;
 class MemorySystem : public SimulatorObject
 {
 	ostream &dramsim_log;
-public:
-	//functions
-	MemorySystem(unsigned id, unsigned megsOfMemory, CSVWriter &csvOut_, ostream &dramsim_log_);
-	virtual ~MemorySystem();
-	void update();
-	bool addTransaction(Transaction *trans);
-	bool addTransaction(bool isWrite, uint64_t addr);
-	void printStats(bool finalStats);
-	bool WillAcceptTransaction();
-	void RegisterCallbacks(
-	    Callback_t *readDone,
-	    Callback_t *writeDone,
-	    void (*reportPower)(double bgpower, double burstpower, double refreshpower, double actprepower));
+	public:
+		//functions
+		MemorySystem(unsigned id, unsigned megsOfMemory, CSVWriter &csvOut_, ostream &dramsim_log_);
+		virtual ~MemorySystem();
+		void update();
+		bool addTransaction(Transaction *trans);
+		bool addTransaction(bool isWrite, uint64_t addr);
+		void printStats(bool finalStats);
+		bool WillAcceptTransaction();
+		void RegisterCallbacks(Callback_t *readDone, Callback_t *writeDone, void (*reportPower)(double bgpower, double burstpower, double refreshpower, double actprepower));
 
-	//fields
-	MemoryController *memoryController;
-	vector<Rank *> *ranks;
-	deque<Transaction *> pendingTransactions; 
+		//fields
+		MemoryController *memoryController;
+		vector<Rank *> *ranks;
+		deque<Transaction *> pendingTransactions;
 
 
-	//function pointers
-	Callback_t* ReturnReadData;
-	Callback_t* WriteDataDone;
-	//TODO: make this a functor as well?
-	static powerCallBack_t ReportPower;
-	unsigned systemID;
+		//function pointers
+		Callback_t* ReturnReadData;
+		Callback_t* WriteDataDone;
+		//TODO: make this a functor as well?
+		static powerCallBack_t ReportPower;
+		unsigned systemID;
 
-private:
-	CSVWriter &csvOut;
+	private:
+		CSVWriter &csvOut;
 };
+
 }
 
 #endif

@@ -42,30 +42,26 @@ namespace DRAMSim {
 class MultiChannelMemorySystem : public SimulatorObject 
 {
 	public:
-	char * name;
-
-	MultiChannelMemorySystem(const string &dev, const string &sys, const string &pwd, const string &trc, unsigned megsOfMemory, string *visFilename=NULL, const IniReader::OverrideMap *paramOverrides=NULL);
+		MultiChannelMemorySystem(const string &dev, const string &sys, const string &pwd, const string &trc,
+				unsigned megsOfMemory, string *visFilename=NULL, const IniReader::OverrideMap *paramOverrides=NULL);
 		virtual ~MultiChannelMemorySystem();
-			bool addTransaction(Transaction *trans);
-			bool addTransaction(const Transaction &trans);
-			bool addTransaction(bool isWrite, uint64_t addr);
-			bool willAcceptTransaction(); 
-			bool willAcceptTransaction(uint64_t addr); 
-			void update();
-			void printStats(bool finalStats=false);
-			ostream &getLogFile();
-			void RegisterCallbacks( 
-				TransactionCompleteCB *readDone,
-				TransactionCompleteCB *writeDone,
-				void (*reportPower)(double bgpower, double burstpower, double refreshpower, double actprepower));
-			int getIniBool(const std::string &field, bool *val);
-			int getIniUint(const std::string &field, unsigned int *val);
-			int getIniUint64(const std::string &field, uint64_t *val);
-			int getIniFloat(const std::string &field, float *val);
+		bool addTransaction(Transaction *trans);
+		bool addTransaction(const Transaction &trans);
+		bool addTransaction(bool isWrite, uint64_t addr);
+		bool willAcceptTransaction();
+		bool willAcceptTransaction(uint64_t addr);
+		void update();
+		void printStats(bool finalStats=false);
+		ostream &getLogFile();
+		void RegisterCallbacks(TransactionCompleteCB *readDone,TransactionCompleteCB *writeDone,
+					void (*reportPower)(double bgpower, double burstpower, double refreshpower, double actprepower));
+		int getIniBool(const std::string &field, bool *val);
+		int getIniUint(const std::string &field, unsigned int *val);
+		int getIniUint64(const std::string &field, uint64_t *val);
+		int getIniFloat(const std::string &field, float *val);
 
-	void InitOutputFiles(string tracefilename);
-	void setCPUClockSpeed(uint64_t cpuClkFreqHz);
-	/*void print_me_2(void);*/
+		void InitOutputFiles(string tracefilename);
+		void setCPUClockSpeed(uint64_t cpuClkFreqHz);
 
 	//output file
 	std::ofstream visDataOut;
