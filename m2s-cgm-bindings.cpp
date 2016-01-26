@@ -29,7 +29,7 @@ class call_back_container_t
 /* callback functors */
 void call_back_container_t::read_complete(unsigned id, uint64_t address, uint64_t clock_cycle)
 {
-	printf("[Callback] read complete: %d 0x%016x cycle=%lu\n", id, address, clock_cycle);
+	//printf("[Callback] read complete: %d 0x%016x cycle=%lu\n", id, address, clock_cycle);
 
 	//calls function from C side here
 	read_done_cpp(id, (long long unsigned) address, (long long unsigned) clock_cycle);
@@ -39,7 +39,7 @@ void call_back_container_t::read_complete(unsigned id, uint64_t address, uint64_
 
 void call_back_container_t::write_complete(unsigned id, uint64_t address, uint64_t clock_cycle)
 {
-	printf("[Callback] write complete: %d 0x%016x cycle=%lu\n", id, address, clock_cycle);
+	//printf("[Callback] write complete: %d 0x%016x cycle=%lu\n", id, address, clock_cycle);
 
 	//calls function from C side here
 	write_done_cpp(id, (long long unsigned) address, (long long unsigned) clock_cycle);
@@ -75,21 +75,22 @@ void call_register_call_backs(struct dram_system_handler_t *mem, void (*read_don
 
 	mem->RegisterCallbacks(read_cb, write_cb, power_callback);
 
-	printf("cpp mem->RegisterCallbacks(read_cb, write_cb, power_callback);\n");
+	fflush(stderr);
+	//printf("cpp mem->RegisterCallbacks(read_cb, write_cb, power_callback);\n");
 	return;
 }
 
 
 /*small test fucntion*/
 void call_print_me(void){
-	printf("print from DRAMSim_1\n");
+	//printf("print from DRAMSim_1\n");
 	return;
 }
 
 /*sets up and returns pointer to new MultiChannelMemorySystem object*/
 void *call_get_memory_system_instance(const char *dev, const char *sys, const char *pwd, const char *trc, unsigned int megsOfMemory, const char *visfilename){
 
-	printf("getMemorySystemInstance()\n");
+	//printf("getMemorySystemInstance()\n");
 
 	std::string str_dev(dev);
 	std::string str_sys(sys);
@@ -100,7 +101,7 @@ void *call_get_memory_system_instance(const char *dev, const char *sys, const ch
 	MultiChannelMemorySystem *mem = getMemorySystemInstance(str_dev, str_sys, str_pwd, str_trc, megsOfMemory, &str_visfilename);
 	fflush(stderr);
 
-	printf("getMemorySystemInstance() size %u\n", megsOfMemory);
+	/*printf("getMemorySystemInstance() size %u chans %d\n", megsOfMemory,);*/
 
 	return mem;// mem;
 }
@@ -112,6 +113,7 @@ int call_add_transaction(struct dram_system_handler_t *mem, int isWrite, unsigne
 	int return_val = 0;
 
 	return_val = mem->addTransaction(isWrite, (uint64_t)addr);
+	fflush(stderr);
 
 	return return_val;
 }
@@ -120,12 +122,17 @@ int call_add_transaction(struct dram_system_handler_t *mem, int isWrite, unsigne
 void call_set_CPU_clock_speed(struct dram_system_handler_t *mem, unsigned int cpuClkFreqHz){
 
 		/*MultiChannelMemorySystem *mem_1 = mem;*/
-		mem->setCPUClockSpeed((uint64_t)cpuClkFreqHz);
 
-		printf("call_set_CPU_clock_speed(%u)\n", cpuClkFreqHz);
+		mem->setCPUClockSpeed((uint64_t)cpuClkFreqHz);
+		fflush(stderr);
+
+
+		/*printf("call_set_CPU_clock_speed(%u)\n", cpuClkFreqHz);*/
 
 	return;
 }
+
+
 
 void call_update(struct dram_system_handler_t *mem){
 

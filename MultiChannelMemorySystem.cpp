@@ -52,7 +52,7 @@ MultiChannelMemorySystem::MultiChannelMemorySystem(const string &deviceIniFilena
 {
 	currentClockCycle=0; 
 	if (visFilename)
-		printf("CC VISFILENAME=%s\n",visFilename->c_str());
+		DEBUG("== CC VISFILENAME=%s'"<<visFilename->c_str()<<"' ==");
 
 	if (!isPowerOfTwo(megsOfMemory))
 	{
